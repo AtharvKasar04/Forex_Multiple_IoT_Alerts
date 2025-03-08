@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer";
+require("dotenv").config();
 
-const BASE_URL = "https://in.investing.com/currencies/";
+const BASE_URL = process.env.BASE_URL;
 
 export async function scrapePrice(symbol: string): Promise<string | null> {
     const browser = await puppeteer.launch({ 
@@ -23,7 +24,7 @@ export async function scrapePrice(symbol: string): Promise<string | null> {
         const url = `${BASE_URL}${symbol}`;
         await page.goto(url, { waitUntil: "domcontentloaded" });
 
-        const priceSelector = 'div.text-5xl\\/9.font-bold.text-\\[\\#232526\\].md\\:text-\\[42px\\].md\\:leading-\\[60px\\]';
+        const priceSelector = 'span.QuoteStrip-lastPrice';
 
         let price = null;
         try {
