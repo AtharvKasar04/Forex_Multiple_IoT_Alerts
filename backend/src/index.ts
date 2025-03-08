@@ -1,14 +1,12 @@
-import { scrapeEURUSD } from "./scrapper";
+import { scrapePrice } from "./scrapper";
 
+// Scrape EUR/USD and XAU/USD
 async function main() {
-    const priceStr = await scrapeEURUSD();
+    const eurusd = await scrapePrice("eur-usd");
+    console.log("EUR/USD Price:", eurusd);
 
-    if (priceStr) {
-        const price = parseFloat(priceStr);
-        console.log(price);
-    } else {
-        console.log("Failed to fetch EURUSD price.");
-    }
+    const xauusd = await scrapePrice("xau-usd");
+    console.log("XAU/USD (Gold) Price:", xauusd);
 }
 
 main();
